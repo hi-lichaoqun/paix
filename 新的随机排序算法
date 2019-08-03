@@ -1,0 +1,23 @@
+hello，大家好，今年大三我在复习《算法分析与设计》的时候，在复习二分排序算法的时候，突然灵光一闪，想到了一个新的排序算发法，那就是随机排序算法。大家都知道二分排序算法的基本思想为获取一个排序好的数组a的中间的下标middle，然后将这个下标对应的数a[middle]与将要搜寻的数x相比较，如果x大于下标对应的数，则令firstIndex=middle,如果相等，则返回下标middle,否则则令数组的末尾下标lastIndex=middle,如此递归的循环下去，直到找到目标值。
+   而我想出的随机排序的基本思想为用一个随机函数获取一个下标，比如java的random()函数，将这个下标randomIndex对应的数值与目标值x相比较，如果相等，则返回此下标，如果目标值大，则令数组首下标firstIndex=randomIndex，否则则令数组尾下标lastIndex=firstIndex,如此递归的循环下去，直到找到目标值，这和二分排序算法十分相似，只不过随机排序算法每次获取的下标是用随机函数生成的，而二分排序算法每次获取的数组下标为所求数组中间的下标。二分排序算法的时间复杂度为O(logN),而此算法最好的情况为0(1)，最坏的情况下为O(n)，当然这是概率非常小的事情。废话不多数，下面就是java的随机排序算法：
+class RandomSearch{
+ public static int randomSearch(int[] a,int x){
+	 int left=0;int right=a.length-1;
+	 while(left<=right){
+		 int RandomNumber=(int)(Math.random()*(right-left+1)+left);//这个是算法的核心，它的作用为获取任意两个整数之间的随机值，包括边界值
+		 if(a[RandomNumber]==x) return RandomNumber;
+		 if(a[RandomNumber]>x) right=RandomNumber-1;
+		 else left=RandomNumber+1;
+ }
+	 return -1;//发生错误，返回-1
+      }
+ 
+ 
+ public static void main(String[] args){
+ int[] aa=new int[1100000];//下方为测试代码
+ for(int i=0;i<1000800;i++){
+   aa[i]=i+9;
+              }
+ System.out.println(randomSearch(aa,4577));
+}
+}
